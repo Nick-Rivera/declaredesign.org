@@ -18,6 +18,7 @@ library(blockTools)
 library(tidyverse)
 # library(writexl)
 theme_set(theme_bw())
+knitr::opts_chunk$set(fig.path = "../cache/", cache.path = "../cache/")
 ```
 
 You're partnering with an education nonprofit and you are planning on running a randomized control trial in 80 classrooms spread across 20 community schools. The request is in: please send us a spreadsheet with random assignments. The assignment's gotta be blocked by school, it's gotta be reproducible, and it's gotta be tonight.  The good news is that you can do all this in a couple of lines of code. We show how using some DeclareDesign tools and then walk through handling of more complex cases.
@@ -38,7 +39,7 @@ here_you_go <- fabricate(school = add_level(N = 20),
 The spreadsheet looks like this:
 
 ```{r, echo=FALSE}
-here_you_go %>% 
+here_you_go %>%
   kable() %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   scroll_box(width = "75%", height = "200px")
@@ -56,7 +57,7 @@ You can then save this as a spreadsheet and send off:
 write.csv(here_you_go, file = "our_assignment_final_revised_final_version_3_latest.csv")
 ```
 
-We're done. 
+We're done.
 
 # Some principles and a better workflow
 
@@ -64,9 +65,9 @@ We got the job done. How well did the approach do in terms of satisfying various
 
 1. We want  random assignment to be *transparent* in the sense that the process by which units were assigned to treatment conditions is fully understandable to interested parties. The code here provides much of the needed transparency. One point of slippage perhaps here is that the there is no specification for how the units here map into the actual units in the field. There should be no ambiguity as to which classroom we are talking about when we talk about classroom 5 in school 2. If this mapping can be determined later then the randomization can come undone.
 
-2. We want the random assignment to be *reproducible* in the sense that a person using the same software could generate the same random assignment. This is typically assured by setting a random number seed (`set.seed(20181204)`). If you give the computer a "seed" before randomizing you will get the same "random" result every time. Setting seeds produces a small risk to transparency since in principle one could select a seed to get a result you like. One approach used here is to use a rule for seed setting -- such as setting the seed as the date of the randomization. Another is to publicly post a single seed that you or your lab will use for all projects. 
+2. We want the random assignment to be *reproducible* in the sense that a person using the same software could generate the same random assignment. This is typically assured by setting a random number seed (`set.seed(20181204)`). If you give the computer a "seed" before randomizing you will get the same "random" result every time. Setting seeds produces a small risk to transparency since in principle one could select a seed to get a result you like. One approach used here is to use a rule for seed setting -- such as setting the seed as the date of the randomization. Another is to publicly post a single seed that you or your lab will use for all projects.
 
-3. We want to be able to verify properties of the random assignment *procedure*, not just of a particular assignment. For that, we need to be able to generate many thousands of possible random assignments. It helps immensely if the random assignment procedure is itself a function that can be called repeatedly, rather than a script or a point-and-click workflow. We have not done that here so will walk through that below. 
+3. We want to be able to verify properties of the random assignment *procedure*, not just of a particular assignment. For that, we need to be able to generate many thousands of possible random assignments. It helps immensely if the random assignment procedure is itself a function that can be called repeatedly, rather than a script or a point-and-click workflow. We have not done that here so will walk through that below.
 
 Rather than writing code that produces an assignment and dataframe directly it can be useful to write down a *procedure* for generating data and assignment. `DeclareDesign` functions are good for this since these are mostly *functions that make functions*.
 
@@ -79,13 +80,13 @@ assignment <- declare_assignment(blocks = class, prob = .5)
 With these functions (`make_data()` and `assignment()` are functions!) written up, you have both the data structure and the assignment strategy declared. There are many ways now to run these one after another to generate a dataset with assignments. Some examples:
 
 ```{r}
-our_assignment <- assignment(make_data())     # base R approach 
+our_assignment <- assignment(make_data())     # base R approach
 
-our_assignment <- make_data() %>% assignment  # dplyr approach 
+our_assignment <- make_data() %>% assignment  # dplyr approach
 ```
 
 
-The base R approach and the `dplyr` approach both run the first function and then apply the second function to the result. 
+The base R approach and the `dplyr` approach both run the first function and then apply the second function to the result.
 
 We advocate a design declaration approach that first concatenates the  two steps into a design and then draws data using the design.
 
@@ -95,7 +96,7 @@ our_assignment <- draw_data(design)           # DeclareDesign approach
 ```
 
 ```{r, echo=FALSE}
-our_assignment %>% 
+our_assignment %>%
   kable() %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   scroll_box(width = "75%", height = "200px")
@@ -103,7 +104,7 @@ our_assignment %>%
 
 <br>
 
-A nice feature of the last approach is that not only can you conduct an actual random assignment from the design but you *also* obtain the probability that each unit is in the condition that it is in. This probability happens to be constant in this example, but it doesn't need to be. If probabilities vary by unit, a standard approach is to weight each unit by the inverse of the probability of being in the condition that it is in. 
+A nice feature of the last approach is that not only can you conduct an actual random assignment from the design but you *also* obtain the probability that each unit is in the condition that it is in. This probability happens to be constant in this example, but it doesn't need to be. If probabilities vary by unit, a standard approach is to weight each unit by the inverse of the probability of being in the condition that it is in.
 
 We will use this last approach going forward as we look at more bells and whistles.
 
@@ -126,13 +127,13 @@ make_data <- declare_population(school = add_level(N = 10),
 
 This new function would generate a data set that reflects the number of classes in each school.
 
-## Make better blocks from richer data 
+## Make better blocks from richer data
 
 Say that you had even richer data about the sampling frame. Then you could use this to do even better assignments. Say this is what you get from your partner:
 
 > We just got information on the class sizes. Here it is: School 1: 20, 25, 23, 30, 12, 15; School 2: 40, 42, 53, 67, 35, 22, 18, 18; School 3: 34, 37, 28, 30; School 4: 18, 24, 20; School 5: 10, 24, 13, 26, 18; School 6: 20, 25; School 7: 28, 34, 19, 24; School 8: 32, 25, 31; School 9: 23, 20, 33, 22, 35; School 10: 20, 31, 34, 35, 18, 23, 22
 
-We want to incorporate this information in the data fabrication step. 
+We want to incorporate this information in the data fabrication step.
 
 ```{r}
 make_data <- declare_population(
@@ -180,7 +181,7 @@ our_df <- draw_data(design)
 ```
 
 ```{r, echo=FALSE}
-our_df %>% 
+our_df %>%
   kable() %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%
   scroll_box(width = "75%", height = "200px")
@@ -231,6 +232,6 @@ write_xlsx(our_df, path = "students_with_random_assignment.xlsx")
 2. Sometimes you need to make blocks from multiple pieces of information. `blockTools` can help with that.
 3. Sometimes you need to conduct a random assignment (and make sure it's reproducible). The functions in `randomizr` can help with that.
 4. Sometimes you need to share data with people who use Excel. `writexl` can help with that!
-5. Think of all this together as a  part of a design declaration and you get a guarantee that all the bits *do* fit together in a transparent and replicable way, plus you are half way to a full declaration. 
+5. Think of all this together as a  part of a design declaration and you get a guarantee that all the bits *do* fit together in a transparent and replicable way, plus you are half way to a full declaration.
 
 # References.
