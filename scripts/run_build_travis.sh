@@ -4,6 +4,12 @@
 # keep running even if there were an error somewhere else in the rest of the script.
 set -e
 
+# Create the home for the cache, just in case it does not exist.
+mkdir --verbose --parents ~/cache
+
+# The blog posts expect the cache to be in the content/cache directory. Move the cache to this spot.
+mv --verbose ~/cache/ content/
+
 # Cleanup This is important because if a file is removed from the real package,
 # it will not automatically be removed from our content folder unless we clean
 # it out ourselves. Also, adding the folder back is important because other parts
@@ -115,3 +121,6 @@ node js/add_authors.js "$(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/index.html" "${P
 # Move pill badges to a sidebar on the package homepages.
 echo "Running js/move_pill_badges.js $(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/index.html"
 node js/move_pill_badges.js "$(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/index.html"
+
+# After the blog posts have updated the cache, move it back
+mv --verbose content/cache ~/
