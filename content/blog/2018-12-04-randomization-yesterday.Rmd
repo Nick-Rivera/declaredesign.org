@@ -18,7 +18,7 @@ library(blockTools)
 library(tidyverse)
 # library(writexl)
 theme_set(theme_bw())
-knitr::opts_chunk$set(fig.path = "../cache/", cache.path = "../cache/")
+knitr::opts_chunk$set(fig.path = "../cache/yesterday", cache.path = "../cache/yesterday", cache = TRUE)
 ```
 
 You're partnering with an education nonprofit and you are planning on running a randomized control trial in 80 classrooms spread across 20 community schools. The request is in: please send us a spreadsheet with random assignments. The assignment's gotta be blocked by school, it's gotta be reproducible, and it's gotta be tonight.  The good news is that you can do all this in a couple of lines of code. We show how using some DeclareDesign tools and then walk through handling of more complex cases.
