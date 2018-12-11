@@ -5,7 +5,7 @@
 set -e
 
 # Create the home for the cache, just in case it does not exist.
-mkdir --verbose --parents ~/cache
+mkdir --verbose --parents ~/cache/
 
 # The blog posts expect the cache to be in the content/cache directory. Move the cache to this spot.
 mv --verbose ~/cache/ content/
@@ -123,4 +123,8 @@ echo "Running js/move_pill_badges.js $(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/ind
 node js/move_pill_badges.js "$(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/index.html"
 
 # After the blog posts have updated the cache, move it back
-mv --verbose content/cache ~/
+if [ -z "$PACKAGE" ]; then
+  mv --verbose "${CONTENT_FOLDER}/cache/" ~/
+else
+  mv --verbose "${CONTENT_FOLDER}/${HOME_FOLDER}/cache/" ~/
+fi

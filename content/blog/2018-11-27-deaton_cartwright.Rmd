@@ -18,7 +18,9 @@ library(tidyverse)
 sims = 12000
 do_diagnosis = FALSE
 theme_set(theme_bw())
-knitr::opts_chunk$set(fig.path = "../cache/deaton/", cache.path = "../cache/deaton/", cache = TRUE)
+knitr::opts_chunk$set(cache = TRUE,
+                      cache.path = "../cache/2018-11-27-deaton-cartwright/",
+                      fig.path = "../cache/2018-11-27-deaton-cartwright/")
 ```
 
 @deaton2017understanding provide multiple arguments against claims that randomized trials should be thought of as a kind of gold standard of scientific evidence. One striking argument they make is that randomization does not justify the statistical tests that researchers typically use. They are right in that. Even if researchers can claim that their estimates of uncertainty are justified by randomization, their habitual use of those estimates to conduct *t*-tests are not. To get a handle on how severe the problem is we replicate the results in @deaton2017understanding and then use a wider set of diagnosands to probe more deeply. Our investigation suggests that what at first seems like a big problem might not in fact be so great if your hypotheses are what they often are for experimentalists---sharp and sample-focused.

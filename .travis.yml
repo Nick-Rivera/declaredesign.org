@@ -34,7 +34,7 @@ env:
     - secure: ztLAZpVtU6u+0DgkYlc9Fihe3IAVan+BAgoN57P8QdQszqCRUu406V5/tPBlRxVfS4oPljgLJgWAiZYySnRWSIcuuYEmEKWKgT13DlMgHw9UfJd1oh6/J4lERH4BqmpJcAJNpyH31chbvLzI2dydbl4QTH2BbqubuQEpebbvjJPztJss05dOinOVNiQFXV6RFM60DlVnIsvigfWn9AwNN7eoLWinSWGFBPDZBw6ZGxnYdn/lIgWMtLIbeZ1ks0vdRXAowwmGu2y9XaUycrVTqlr0vb9uf9GOMN0M2Clfs3UMx0aaWXgiqKM/mQ8AVQt6b07jtCNoFUPVq2zOsx1gj2/9+NMa5/rzr7YnrbkTU6SkYyPXWz6Q/gtVdDnb+aIWG7qRTw9ozDS7AKqPKBJsWbIsNxQkjZl0MC3hxWW+gNxHCCCAUGZec8QpiCXRnElEWwkoILqwLsWydp8XiZYkiRJ4xoNRaqPpRsh8HwCamg5l2qEfCAdsr/qwMRFoJB26ADIf/q+/vdcKdqakPXv2yx7z24zK/cn3MnKp//g9SjqjBO+XEpOW2LVqbD4oiA11qUB1bMy58NMetcciq7CbS5jL0SyjfC3jpYPUqb3tJ4KrhIPT0Rmg0lOnEraSzj42xQVKJh5DvTuOl9Si9CFK4EVyVYTrHPJUIIQDypfk7RM=
   matrix:
     - PACKAGE='DesignLibrary'
-      GITHUB_OWNER='DeclareDesign'
+      GITHUB_OWNER='Nick-Rivera'
       BRANCH='master'
       HOME_FOLDER='library'
       PKGDOWN_TEMPLATES='DesignLibrary_pkgdown_templates'
