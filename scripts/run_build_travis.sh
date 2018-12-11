@@ -8,7 +8,12 @@ set -e
 mkdir --verbose --parents ~/cache/
 
 # The blog posts expect the cache to be in the content/cache directory. Move the cache to this spot.
-mv --verbose ~/cache/ content/
+# After the blog posts have updated the cache, move it back
+if [ -z "$PACKAGE" ]; then
+  mv --verbose ~/cache/ "${CONTENT_FOLDER}/cache/"
+else
+  mv --verbose ~/cache "${CONTENT_FOLDER}/${HOME_FOLDER}/cache/" 
+fi
 
 # Cleanup This is important because if a file is removed from the real package,
 # it will not automatically be removed from our content folder unless we clean
