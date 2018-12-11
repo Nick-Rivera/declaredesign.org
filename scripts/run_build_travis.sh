@@ -7,14 +7,6 @@ set -e
 # Create the home for the cache, just in case it does not exist.
 mkdir --verbose --parents ~/cache/
 
-# The blog posts expect the cache to be in the content/cache directory. Move the cache to this spot.
-# After the blog posts have updated the cache, move it back
-if [ -z "$PACKAGE" ]; then
-  mv --verbose ~/cache/ "${CONTENT_FOLDER}/cache/"
-else
-  mv --verbose ~/cache "${CONTENT_FOLDER}/${HOME_FOLDER}/cache/" 
-fi
-
 # Cleanup This is important because if a file is removed from the real package,
 # it will not automatically be removed from our content folder unless we clean
 # it out ourselves. Also, adding the folder back is important because other parts
@@ -66,9 +58,13 @@ if [ -n "$PACKAGE" ]; then
   # index.html files have a special meaning to Hugo. Leaving reference index pages
   # as index.html will mess up Hugo's build process.
   find "./${CONTENT_FOLDER}/" -type 'f' -name 'index.html' -execdir mv '{}' 'readme.html' ';'
+
+  mv --verbose ~/cache "${CONTENT_FOLDER}/${HOME_FOLDER}/cache/"
 else
   echo 'Installing package dependencies for the blog...'
   Rscript 'R/install_dependencies.R' ''
+
+  mv --verbose ~/cache/ "${CONTENT_FOLDER}/cache/"
 fi
 
 Rscript -e 'blogdown::build_site()'
