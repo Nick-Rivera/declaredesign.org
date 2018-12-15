@@ -127,9 +127,9 @@ node js/move_pill_badges.js "$(pwd)/${PUBLISH_FOLDER}/${HOME_FOLDER}/index.html"
 
 # After the cache has been updated, move it back so that Travis can upload it for next time.
 if [ -z "$PACKAGE" ]; then
-  echo 'The blog posts have been build. Moving the cache now...'
+  echo 'The blog posts have been built. Moving the cache back so that Travis can upload it...'
   mv --verbose "${CONTENT_FOLDER}/cache/" ~/
 else
-  echo "A package's files have been build. Moving the cache now..."
+  echo "A package's files have been built. Moving the cache back so that Travis can upload it..."
   mv --verbose "${CONTENT_FOLDER}/${HOME_FOLDER}/cache/" ~/
 fi
