@@ -20,12 +20,12 @@ a:hover, a:focus{text-decoration: none;}
 
 
 
-.navbar-wrap{border-bottom: 1px solid #EAEAEA;}
+.navbar-wrap{border-bottom: 1px solid #EAEAEA !important;}
 .navbar-light .navbar-nav .nav-link {color: #000000; font-size: 12px; font-weight: 500; padding: 20px;}
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:focus{color: #0061FF;}
 
-.hero-panel{height: 100vh; display: flex; align-items: center; padding-top: 0rem;}
+.hero-panel{height: 100vh; display: flex; align-items: center; padding-top: 5rem;}
 .hero-content{}
 .hero-content h1{font-size: 3rem; line-height: 3.5rem;}
 .hero-content p{font-size: 18px;}
