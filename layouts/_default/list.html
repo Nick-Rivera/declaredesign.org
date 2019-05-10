@@ -1,8 +1,15 @@
 {{partial "header.html" .}}
 
-<main class="container">
+<!-- <main class="container"> -->
 
-  {{if and .IsHome .Content}}
+  {{ partial "hero_section.html" . }}
+  {{ partial "mida_section.html" . }}
+  {{ partial "software_section.html" . }}
+  {{ partial "design_library_section.html" . }}
+  {{ partial "cta_section.html" . }}
+  {{ partial "approch_section.html" . }}
+
+  <!-- {{if and .IsHome .Content}}
   <article class="article">
     <div class="article-content">
       {{.Content}}
@@ -22,8 +29,8 @@
     {{end}}
     {{end}}
   </div>
-  {{end}}
+  {{end}} -->
 
-</main>
+<!-- </main> -->
 
 {{partial "footer.html" .}}
