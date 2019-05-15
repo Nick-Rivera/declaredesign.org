@@ -205,3 +205,15 @@ footer{}
 #TOC{
 	padding-top: 100px;
 }
+
+.pagination{
+	margin-bottom: 25px!important;
+}
+
+#design_library_list {
+	display: block;
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
