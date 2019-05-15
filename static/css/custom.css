@@ -196,6 +196,8 @@ footer{}
 /*===Safari Specific===*/
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 		
-	}
+}
 
-
+.archive, .article{
+	padding-top: 100px;
+}
