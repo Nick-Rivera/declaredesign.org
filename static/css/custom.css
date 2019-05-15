@@ -201,3 +201,7 @@ footer{}
 .archive, .article{
 	padding-top: 100px;
 }
+
+#TOC{
+	padding-top: 100px;
+}
